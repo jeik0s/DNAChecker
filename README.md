@@ -3,4 +3,4 @@ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/sr
 
 
 Run PHP server:
-docker run -it --rm --name ProjektAI -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.4-cli php index.php
+docker run -d -p 8888:80 --name ProjektAI -v "$PWD":/var/www/html php:7.2-apache
