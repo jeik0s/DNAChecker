@@ -72,10 +72,10 @@
         <th>DNA diffrences</th>
       </tr>
       <tr>
-        <td id="badDNA"></td>
+        <td  id="goodDNA"></td>
       </tr>
       <tr>
-        <td  id="goodDNA"></td>
+        <td id="badDNA"></td>
       </tr>
     </table> 
         <br />
@@ -102,6 +102,7 @@
 
         </div>
         <div class="col-1"></div>
+        <div class="col-4" style="margin-top: 30px;">Check individual try: <input type="number" id="ChartNo"><button onclick="showSingleTry()">Submit</button></div>
     </div>  
 
 <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
@@ -204,7 +205,7 @@ function addData(data) {
     console.log(TheMostNeededOneIndex)
     document.getElementById("TheLessNeededOneIndex").innerHTML = TheLessNeededOneIndex;
     document.getElementById("TheMostNeededOneIndex").innerHTML = TheMostNeededOneIndex;
-    document.getElementById("belowOneHundredInPercentage").innerHTML = belowOneHundredInPercentage + "%";
+    document.getElementById("belowOneHundredInPercentage").innerHTML = belowOneHundredInPercentage.toFixed(2) + "%";
     chart.render();
 }
  
@@ -213,6 +214,12 @@ $.getJSON("output.json", addData);
 
  
 }
+
+function showSingleTry(){
+    var ChartNo = $("#ChartNo").val();
+    window.location.href = '/singleChart.php?chartNo='+ChartNo;
+}
+
     </script>
 
 </body>
