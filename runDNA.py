@@ -1,14 +1,14 @@
 from genetic_library import GeneticAlgorithm, Element
-from genetic_library.selection_models import elite_selection_model
+from genetic_library.selection_models import equalitarianism
 
 from random import randint, choice
 
 # For testing: https://www.bioinformatics.org/sms2/random_dna.html
 
 HealthDNA = "tattatcttctagcgtatggatactttgtcgctaccaatagaccgggctagactcgccgatgagtcggttagacggtgcacccagattattacacttaac"
-TARGET =    "tattatcttctagcgtatggatactttgtcgctaccaatagaccgggctaggtacgccgatgagtcggttagacggtgcacccagattattacacttaac"
-Population = 100
-trys = 150;
+TARGET =    "tattatcttctagcgtatggatactttgtcgctaccaatagaccgggctaggtctaaggatgagtcggttagacggtgcacccagattattacacttaac"
+Population = 20
+trys = 100;
 
 class DNAsequence(Element):
     POSSIBILITIES = '''agtc'''
@@ -58,7 +58,7 @@ next_try = 0;
 
 for i in range(trys):
     json_file = '"'+str(next_try)+'":' + '{'
-    ga = GeneticAlgorithm(first_population_generator, elite_selection_model, stop_condition)
+    ga = GeneticAlgorithm(first_population_generator, equalitarianism, stop_condition)
     for result in ga.run():
         json_file = json_file + result + ","
     json_file = json_file[:-1]
