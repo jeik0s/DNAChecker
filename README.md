@@ -8,6 +8,7 @@ Run PHP server:
 Open browser:
 - localhost:8888
 
+
 Special Thanks to:
 - https://towardsdatascience.com/genetic-algorithm-implementation-in-python-5ab67bb124a6
 - https://towardsdatascience.com/a-simple-genetic-algorithm-from-scratch-in-python-4e8c66ac3121
