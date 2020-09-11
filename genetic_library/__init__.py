@@ -9,15 +9,15 @@ class Element(ABC):
         self.fitness = self.evaluate_function()
 
     def mutation(self):
-        self._perform_mutation()
+        self._mutation()
         self.fitness = self.evaluate_function()
 
     @abstractmethod
-    def _perform_mutation(self):
+    def _mutation(self):
         pass
 
     @abstractmethod
-    def crossover(self, element2: 'Element' ) -> 'Element':
+    def crossover2DNA(self, element2: 'Element' ) -> 'Element':
         pass
 
     @abstractmethod
@@ -32,6 +32,7 @@ class GeneticAlgorithm:
                  selection_model: callable, stop_condition: callable, mutation_probability: float = 0.1):
         self.first_generation_func = first_population_generator
         self.selection_model = selection_model
+        
         self.stop_condition = stop_condition
         self.mutation_probability = mutation_probability
 
@@ -46,7 +47,7 @@ class GeneticAlgorithm:
             selected = self.selection_model(population)
             new_population = selected.copy()
             while len(new_population) != population_len:
-                child = choice(population).crossover(choice(population))
+                child = choice(population).crossover2DNA(choice(population))
                 if random() <= self.mutation_probability:
                     child.mutation()
                 new_population.append(child)

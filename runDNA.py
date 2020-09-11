@@ -17,24 +17,28 @@ class DNAsequence(Element):
         self.DNAsequence = DNAsequence
         super().__init__()
 
-    def _perform_mutation(self):
-        random_index = randint(0, len(self.DNAsequence) - 1)
-        DNAsequence_as_list = list(self.DNAsequence)
-        DNAsequence_as_list[random_index] = choice(self.POSSIBILITIES)
-        self.DNAsequence = "".join(DNAsequence_as_list)
 
-    def crossover(self, element2: 'Element' ) -> 'Element':
-        length = int(randint(0, len(self.DNAsequence) - 1))
-        new_DNAsequence = self.DNAsequence[:length] + element2.DNAsequence[length:]
-
-        return DNAsequence(new_DNAsequence)
-
+    # Sprawdz przystosowanie - po prostu porównaj 2 stringi 
     def evaluate_function(self):
         diff = 0
         for letter1, letter2 in zip(self.DNAsequence, TARGET):
             if letter1 != letter2:
                 diff += 1
         return diff
+
+    # wez dwa dna przeklei troche z jednego i polacz od lososwego indexu do randomowego losowego
+    def crossover2DNA(self, element2: 'Element' ) -> 'Element':
+        length = int(randint(0, len(self.DNAsequence) - 1))
+        new_DNAsequence = self.DNAsequence[:length] + element2.DNAsequence[length:]
+
+        return DNAsequence(new_DNAsequence)
+
+    # Mutacja - zamien litere
+    def _mutation(self):
+        random_index = randint(0, len(self.DNAsequence) - 1)
+        DNAsequence_as_list = list(self.DNAsequence)
+        DNAsequence_as_list[random_index] = choice(self.POSSIBILITIES)
+        self.DNAsequence = "".join(DNAsequence_as_list)
 
     def __repr__(self):
         return self.DNAsequence
@@ -63,6 +67,7 @@ for i in range(trys):
         json_file = json_file + result + ","
     json_file = json_file[:-1]
     json_file = json_file + "}"
+    # json_filesentence.strip()
     # print(json_file)
     whole_process = whole_process + json_file + ",";
     next_try = next_try + 1;
