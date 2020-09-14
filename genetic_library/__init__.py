@@ -25,19 +25,19 @@ class Element(ABC):
         pass
 
 
-class GeneticAlgorithm:
+class genetic_algorithm:
     output_data = []
 
-    def __init__(self, first_population_generator: callable,
-                 selection_model: callable, stop_condition: callable, mutation_probability: float = 0.1):
-        self.first_generation_func = first_population_generator
+    def __init__(self, generate_first_new_population: callable,
+                 selection_model: callable, stop_condition: callable, probability_of_the_mutation: float = 0.1):
+        self.first_generation = generate_first_new_population
         self.selection_model = selection_model
         
         self.stop_condition = stop_condition
-        self.mutation_probability = mutation_probability
+        self.probability_of_the_mutation = probability_of_the_mutation
 
     def run(self):
-        population = self.first_generation_func()
+        population = self.first_generation()
         population.sort(key=lambda x: x.fitness)
         population_len = len(population)
         changedFitness = 0 
@@ -48,7 +48,7 @@ class GeneticAlgorithm:
             new_population = selected.copy()
             while len(new_population) != population_len:
                 child = choice(population).crossover2DNA(choice(population))
-                if random() <= self.mutation_probability:
+                if random() <= self.probability_of_the_mutation:
                     child.mutation()
                 new_population.append(child)
 

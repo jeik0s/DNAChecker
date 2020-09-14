@@ -14,3 +14,5 @@ Special Thanks to:
 - https://towardsdatascience.com/a-simple-genetic-algorithm-from-scratch-in-python-4e8c66ac3121
 - https://pypi.org/project/geneticalgorithm/
 - https://datascienceplus.com/genetic-algorithm-in-machine-learning-using-python/
+
+# For testing: https://www.bioinformatics.org/sms2/random_dna.html

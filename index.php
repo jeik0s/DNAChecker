@@ -64,7 +64,7 @@
         <div class="col-1"></div>
         <div class="col-10">
             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-            Ilość prób
+            Amount of populations
             <br/>
             <br/>
  <table style="width:100%">

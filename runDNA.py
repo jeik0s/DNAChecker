@@ -1,9 +1,7 @@
-from genetic_library import GeneticAlgorithm, Element
+from genetic_library import genetic_algorithm, Element
 from genetic_library.selection_models import equalitarianism
 
 from random import randint, choice
-
-# For testing: https://www.bioinformatics.org/sms2/random_dna.html
 
 HealthDNA = "tattatcttctagcgtatggatactttgtcgctaccaatagaccgggctagactcgccgatgagtcggttagacggtgcacccagattattacacttaac"
 TARGET =    "tattatcttctagcgtatggatactttgtcgctaccaatagaccgggctaggtctaaggatgagtcggttagacggtgcacccagattattacacttaac"
@@ -11,7 +9,12 @@ Population = 20
 trys = 100;
 
 class DNAsequence(Element):
-    POSSIBILITIES = '''agtc'''
+    POSSIBILITIES = '''
+                    a
+                    g
+                    t
+                    c
+                    '''
 
     def __init__(self, DNAsequence):
         self.DNAsequence = DNAsequence
@@ -26,11 +29,10 @@ class DNAsequence(Element):
                 diff += 1
         return diff
 
-    # wez dwa dna przeklei troche z jednego i polacz od lososwego indexu do randomowego losowego
+    # wez dwa dna przeklei troche z jednego i polacz od lososwego indexu do losowego indexu
     def crossover2DNA(self, element2: 'Element' ) -> 'Element':
         length = int(randint(0, len(self.DNAsequence) - 1))
         new_DNAsequence = self.DNAsequence[:length] + element2.DNAsequence[length:]
-
         return DNAsequence(new_DNAsequence)
 
     # Mutacja - zamien litere
@@ -44,7 +46,7 @@ class DNAsequence(Element):
         return self.DNAsequence
 
 
-def first_population_generator():
+def generate_first_new_population():
     return [DNAsequence(HealthDNA) for _ in range(Population)]
 
 
@@ -62,7 +64,7 @@ next_try = 0;
 
 for i in range(trys):
     json_file = '"'+str(next_try)+'":' + '{'
-    ga = GeneticAlgorithm(first_population_generator, equalitarianism, stop_condition)
+    ga = genetic_algorithm(generate_first_new_population, equalitarianism, stop_condition)
     for result in ga.run():
         json_file = json_file + result + ","
     json_file = json_file[:-1]
