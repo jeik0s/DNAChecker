@@ -1,20 +1,15 @@
-from genetic_library import genetic_algorithm, Element
+from genetic_library import geneticAlgorithm, Element
 from genetic_library.selection_models import equalitarianism
 
 from random import randint, choice
 
-HealthDNA = "tattatcttctagcgtatggatactttgtcgctaccaatagaccgggctagactcgccgatgagtcggttagacggtgcacccagattattacacttaac"
-TARGET =    "tattatcttctagcgtatggatactttgtcgctaccaatagaccgggctaggtctaaggatgagtcggttagacggtgcacccagattattacacttaac"
-Population = 20
-trys = 100;
+HealthDNA = "cctcacagctatccgtgcggcagtagcggcgcaaatctattagcggcttaggtagaagttagcacggctcccgaatgtggaaattcgtcggtataccgca"
+TARGET =    "cctcacagctatccgtgcggcagtagcggcgcaaatctattagataggaaggtagaagttagcacggctcccgaatgtggaaattcgtcggtataccgca"
+Population = 500
+trys = 150
 
 class DNAsequence(Element):
-    POSSIBILITIES = '''
-                    a
-                    g
-                    t
-                    c
-                    '''
+    POSSIBILITIES = '''agtc'''
 
     def __init__(self, DNAsequence):
         self.DNAsequence = DNAsequence
@@ -30,23 +25,24 @@ class DNAsequence(Element):
         return diff
 
     # wez dwa dna przeklei troche z jednego i polacz od lososwego indexu do losowego indexu
-    def crossover2DNA(self, element2: 'Element' ) -> 'Element':
+    def crossover_DNA(self, element2: 'Element' ) -> 'Element':
         length = int(randint(0, len(self.DNAsequence) - 1))
         new_DNAsequence = self.DNAsequence[:length] + element2.DNAsequence[length:]
         return DNAsequence(new_DNAsequence)
 
     # Mutacja - zamien litere
-    def _mutation(self):
+    def mutation_of_DNA(self):
         random_index = randint(0, len(self.DNAsequence) - 1)
         DNAsequence_as_list = list(self.DNAsequence)
         DNAsequence_as_list[random_index] = choice(self.POSSIBILITIES)
         self.DNAsequence = "".join(DNAsequence_as_list)
 
+    # wypisanie elementu "printable"
     def __repr__(self):
         return self.DNAsequence
 
 
-def generate_first_new_population():
+def first_generation_creator():
     return [DNAsequence(HealthDNA) for _ in range(Population)]
 
 
@@ -64,7 +60,7 @@ next_try = 0;
 
 for i in range(trys):
     json_file = '"'+str(next_try)+'":' + '{'
-    ga = genetic_algorithm(generate_first_new_population, equalitarianism, stop_condition)
+    ga = geneticAlgorithm(first_generation_creator, equalitarianism, stop_condition)
     for result in ga.run():
         json_file = json_file + result + ","
     json_file = json_file[:-1]
