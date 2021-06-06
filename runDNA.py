@@ -1,12 +1,25 @@
-from genetic_library import geneticAlgorithm, Element
-from genetic_library.selection_models import equalitarianism
+from geneticAlgorithm import geneticAlgorithm, Element
 
 from random import randint, choice
 
 HealthDNA = "cctcacagctatccgtgcggcagtagcggcgcaaatctattagcggcttaggtagaagttagcacggctcccgaatgtggaaattcgtcggtataccgca"
 TARGET =    "cctcacagctatccgtgcggcagtagcggcgcaaatctattagataggaaggtagaagttagcacggctcccgaatgtggaaattcgtcggtataccgca"
-Population = 500
-trys = 150
+Population = 200
+Tries = 75
+
+def first_generation_creator():
+    return [DNAsequence(HealthDNA) for _ in range(Population)]
+
+
+def stop_condition(string, current_fitness, i):
+    return current_fitness == 0
+
+# Elitarny model pobierania kolejnych elementów
+def equalitarianism(generation):
+    max_selected = int(len(generation) / 15)
+    sorted_by_assess = sorted(generation, key=lambda x: x.fitness)
+    return sorted_by_assess[:max_selected]
+
 
 class DNAsequence(Element):
     POSSIBILITIES = '''agtc'''
@@ -42,23 +55,16 @@ class DNAsequence(Element):
         return self.DNAsequence
 
 
-def first_generation_creator():
-    return [DNAsequence(HealthDNA) for _ in range(Population)]
-
-
-def stop_condition(string, current_fitness, i):
-    return current_fitness == 0
-
 whole_process = '''{
     "HealthyDNA":"''' + str(HealthDNA) + '''",
     "UnhealthyDNA": "''' + str(TARGET) + '''",
     "ElementsInPopulation": "''' + str(Population) + '''",
-    "NumberOfPopulation": "''' + str(trys) + '''",
+    "NumberOfPopulation": "''' + str(Tries) + '''",
     "Data":{
     '''
 next_try = 0;
 
-for i in range(trys):
+for i in range(Tries):
     json_file = '"'+str(next_try)+'":' + '{'
     ga = geneticAlgorithm(first_generation_creator, equalitarianism, stop_condition)
     for result in ga.run():
