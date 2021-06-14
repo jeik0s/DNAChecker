@@ -3,6 +3,9 @@ Python AI software to Check how many generations have to pass to change healthy 
 
 <p> As we know there are some disease wrote in our DNA, and looking into us in to our "binary" code we can say probabilty of occurrence some disease. Our algoritm will check, how many generation have to pass, to change health DNA to  We could use it for example in medicine, to check what is the probability that child made from those DNAs could get genetic disease.</p>
 
+<h3> Live demo </h3>
+http://146.59.13.2:8888/
+
 <h3> To run: </h3>
 Run python(to generate json):
 - docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3 python runDNA.py
