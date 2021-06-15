@@ -7,7 +7,8 @@ Python AI software to Check how many generations have to pass to change healthy 
 http://146.59.13.2:8888/
 
 <h3> To run: </h3>
-Run python(to generate json):
+Run python(and generate json):
+
 - docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3 python runDNA.py
 
 
